@@ -12,12 +12,17 @@ body {
 
 $panel-width: 800px;
 
+$text-shadow-radius: 1px;
+
 .__panel-font {
-  font-size: 30px;
+  font-size: 15px;
   font-family: "Courier New", Courier, monospace;
   color: #00ff00;
-  @include text-shadow(2px 2px 0 green, 2px -2px 0 green, -2px 2px 0 green,
-  -2px -2px 0 green);
+  @include text-shadow(
+  $text-shadow-radius $text-shadow-radius 0 green,
+  $text-shadow-radius (-$text-shadow-radius) 0 green,
+  -$text-shadow-radius $text-shadow-radius 0 green,
+  -$text-shadow-radius (-$text-shadow-radius) 0 green)
 }
 
 .__panel {
@@ -28,9 +33,10 @@ $panel-width: 800px;
 
 .result {
   @extend .__panel;
-  line-height: 40px;
-  height: 200px;
-  margin-top: 100px;
+  line-height: 20px;
+  height: 250px;
+  margin-top: 80px;
+  word-wrap: break-word;
 }
 
 .command {
@@ -41,8 +47,7 @@ $panel-width: 800px;
 
 .cmdprompt {
   display: inline-block;
-  width: 40px;
-  overflow: hidden;
+  width: 25px;
 }
 
 .cmdinput {
@@ -53,4 +58,5 @@ $panel-width: 800px;
   outline: none;
   @extend .__panel-font;
   background-color: black;
+  display: inline-block;
 }
