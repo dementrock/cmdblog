@@ -1,0 +1,18 @@
+#lines {
+    margin-left: 50px;
+	margin-top: 50px;
+}
+
+.cmdline{
+	height: 20px;
+	width: 800px;
+	background-color: black;
+}
+
+.cmdline#current{
+	background-color: grey;
+}
+
+#input_area {
+
+}

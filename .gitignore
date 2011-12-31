@@ -1,0 +1,4 @@
+*.swp
+*.swo
+static/*
+.sass-cache/*
