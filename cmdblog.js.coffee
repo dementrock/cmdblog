@@ -22,9 +22,9 @@ root.cmdBlog.moveTo = (directory) ->
       No handler for this directory type.
     """
   if root.cmdBlog.directoryHandler[directory.type]
-    root.cmdBlog.directoryHandler[directory.type](directory)
+    return root.cmdBlog.directoryHandler[directory.type](directory)
   else
-    root.cmdBlog.displayResult errorStr
+    return errorStr
     
 root.cmdBlog.commandFunctionList = {}
 
@@ -135,7 +135,7 @@ root.cmdBlog.getTokens = (command) ->
 root.cmdBlog.processCommand = (command) ->
   tokens = root.cmdBlog.getTokens command
   if root.cmdBlog.commandFunctionList[tokens[0]]
-    root.cmdBlog.commandFunctionList[tokens[0]].run(tokens[1..tokens.length-1])
+    root.cmdBlog.displayResult root.cmdBlog.commandFunctionList[tokens[0]].run(tokens[1..tokens.length-1])
   else
     root.cmdBlog.displayResult root.cmdBlog._invalidCommandStr
 

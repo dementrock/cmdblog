@@ -4,8 +4,8 @@
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
   root.cmdBlog.directoryHandler.link = function(directory) {
-    root.cmdBlog.displayResult("Entering " + directory.name + "...");
-    return setTimeout(sprintf("window.location.href=\"%s\"", directory.url), 1000);
+    setTimeout(sprintf("window.location.href=\"%s\"", directory.url), 1000);
+    return root.cmdBlog.displayResult("Entering " + directory.name + "...");
   };
 
   root.cmdBlog.directories.blog = {
@@ -25,9 +25,9 @@
       var welcomeStr;
       welcomeStr = "Welcome to Command-line Blog 0.1.\nCopyright {&copy;} 2011 - DementRock.";
       if (args.length === 0) {
-        return root.cmdBlog.displayResult(welcomeStr);
+        return welcomeStr;
       } else {
-        return root.cmdBlog.displayResult(this.docString);
+        return this.docString;
       }
     },
     docString: "Usage: welcome\nFunction: display welcome message.",
@@ -42,15 +42,15 @@
       helpStr = "Available commands:\n%s\nType `help {&lt;}command{&gt;}' for usage of the specific command. ";
       noHelpStr = "Command not found.";
       if (args.length === 0) {
-        return root.cmdBlog.displayResult(sprintf(helpStr, root.cmdBlog.listToString(root.cmdBlog.getCommandList())));
+        return sprintf(helpStr, root.cmdBlog.listToString(root.cmdBlog.getCommandList()));
       } else if (args.length === 1) {
         if (root.cmdBlog.commandFunctionList[args[0]]) {
-          return root.cmdBlog.displayResult(root.cmdBlog.commandFunctionList[args[0]].docString);
+          return root.cmdBlog.commandFunctionList[args[0]].docString;
         } else {
-          return root.cmdBlog.displayResult(noHelpStr);
+          return noHelpStr;
         }
       } else {
-        return root.cmdBlog.displayResult(this.docString);
+        return this.docString;
       }
     },
     docString: "Usage 1: help\nFunction: display list of available commands.\nUsage 2: help {&lt;}command{&gt;}\nFunction: display usage of the command",
@@ -62,9 +62,9 @@
   root.cmdBlog.commandFunctionList.ls = {
     run: function(args) {
       if (args.length === 0) {
-        return root.cmdBlog.displayResult("Directories:\n\n" + root.cmdBlog.listToString(root.cmdBlog.getDirectoryList()));
+        return "Directories:\n\n" + root.cmdBlog.listToString(root.cmdBlog.getDirectoryList());
       } else {
-        return root.cmdBlog.displayResult(this.docString);
+        return this.docString;
       }
     },
     docString: "Usage: ls\nFunction: display directories under current path",
@@ -78,7 +78,7 @@
       var directory, directoryNotFoundStr;
       directoryNotFoundStr = "Directory not found.";
       if (args.length !== 1) {
-        return root.cmdBlog.displayResult(this.docString);
+        return this.docString;
       } else {
         directory = args[0];
         if (directory[directory.length - 1] === '/') {
@@ -87,7 +87,7 @@
         if (root.cmdBlog.directories[directory]) {
           return root.cmdBlog.moveTo(root.cmdBlog.directories[directory]);
         } else {
-          return root.cmdBlog.displayResult(directoryNotFoundStr);
+          return directoryNotFoundStr;
         }
       }
     },

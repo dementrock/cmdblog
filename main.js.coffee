@@ -1,8 +1,8 @@
 root = exports ? this
 
 root.cmdBlog.directoryHandler.link = (directory) ->
-  root.cmdBlog.displayResult "Entering " + directory.name + "..."
   setTimeout(sprintf("window.location.href=\"%s\"", directory.url), 1000)
+  return root.cmdBlog.displayResult "Entering " + directory.name + "..."
 
 root.cmdBlog.directories.blog =
   name: "blog"
@@ -22,9 +22,9 @@ root.cmdBlog.commandFunctionList.welcome =
         Copyright {&copy;} 2011 - DementRock.
       """
     if args.length == 0
-      root.cmdBlog.displayResult welcomeStr
+      return welcomeStr
     else
-      root.cmdBlog.displayResult this.docString
+      return this.docString
   docString: \
   """
     Usage: welcome
@@ -48,14 +48,14 @@ root.cmdBlog.commandFunctionList.help =
       """
 
     if args.length == 0
-      root.cmdBlog.displayResult sprintf helpStr, root.cmdBlog.listToString(root.cmdBlog.getCommandList())
+      return sprintf helpStr, root.cmdBlog.listToString(root.cmdBlog.getCommandList())
     else if args.length == 1
       if root.cmdBlog.commandFunctionList[args[0]]
-        root.cmdBlog.displayResult root.cmdBlog.commandFunctionList[args[0]].docString
+        return root.cmdBlog.commandFunctionList[args[0]].docString
       else
-        root.cmdBlog.displayResult noHelpStr
+        return noHelpStr
     else
-      root.cmdBlog.displayResult this.docString
+      return this.docString
 
   docString: \
   """
@@ -72,9 +72,9 @@ root.cmdBlog.commandFunctionList.help =
 root.cmdBlog.commandFunctionList.ls =
   run: (args) ->
     if args.length == 0
-      root.cmdBlog.displayResult "Directories:\n\n" + root.cmdBlog.listToString(root.cmdBlog.getDirectoryList())
+      return "Directories:\n\n" + root.cmdBlog.listToString(root.cmdBlog.getDirectoryList())
     else
-      root.cmdBlog.displayResult this.docString
+      return this.docString
   docString: \
   """
     Usage: ls
@@ -90,15 +90,15 @@ root.cmdBlog.commandFunctionList.cd =
         Directory not found.
       """
     if args.length != 1
-      root.cmdBlog.displayResult this.docString
+      return this.docString
     else
       directory = args[0]
       if directory[directory.length-1] == '/'
         directory = directory[0..directory.length-2]
       if root.cmdBlog.directories[directory]
-        root.cmdBlog.moveTo(root.cmdBlog.directories[directory])
+        return root.cmdBlog.moveTo(root.cmdBlog.directories[directory])
       else
-        root.cmdBlog.displayResult directoryNotFoundStr
+        return directoryNotFoundStr
   docString: \
   """
     Usage: cd {&lt;}directory_name{&gt;}

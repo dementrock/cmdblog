@@ -21,7 +21,7 @@
     if (root.cmdBlog.directoryHandler[directory.type]) {
       return root.cmdBlog.directoryHandler[directory.type](directory);
     } else {
-      return root.cmdBlog.displayResult(errorStr);
+      return errorStr;
     }
   };
 
@@ -190,7 +190,7 @@
     var tokens;
     tokens = root.cmdBlog.getTokens(command);
     if (root.cmdBlog.commandFunctionList[tokens[0]]) {
-      return root.cmdBlog.commandFunctionList[tokens[0]].run(tokens.slice(1, (tokens.length - 1) + 1 || 9e9));
+      return root.cmdBlog.displayResult(root.cmdBlog.commandFunctionList[tokens[0]].run(tokens.slice(1, (tokens.length - 1) + 1 || 9e9)));
     } else {
       return root.cmdBlog.displayResult(root.cmdBlog._invalidCommandStr);
     }
