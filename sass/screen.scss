@@ -60,3 +60,15 @@ $text-shadow-radius: 1px;
   background-color: black;
   display: inline-block;
 }
+
+.hiddentab {
+  background-color: black;
+  border: none;
+  width: 0px;
+  height: 0px;
+}
+
+.cmdblock {
+  width: 150px;
+  display: inline-block;
+}

@@ -30,26 +30,19 @@
         return root.cmdBlog.displayResult(this.docString);
       }
     },
-    docString: "Usage: welcome\nFunction: display welcome message."
+    docString: "Usage: welcome\nFunction: display welcome message.",
+    hint: function() {
+      return '';
+    }
   };
 
   root.cmdBlog.commandFunctionList.help = {
     run: function(args) {
-      var getCommandList, helpStr, noHelpStr;
-      helpStr = "Available commands:\n%s\nType `help <command>' for usage of the specific command. ";
+      var helpStr, noHelpStr;
+      helpStr = "Available commands:\n%s\nType `help {&lt;}command{&gt;}' for usage of the specific command. ";
       noHelpStr = "Command not found.";
-      getCommandList = function() {
-        var command, detail, str, _ref;
-        str = "";
-        _ref = root.cmdBlog.commandFunctionList;
-        for (command in _ref) {
-          detail = _ref[command];
-          str += '`' + command + "', ";
-        }
-        return str.slice(0, (str.length - 3) + 1 || 9e9);
-      };
       if (args.length === 0) {
-        return root.cmdBlog.displayResult(sprintf(helpStr, getCommandList()));
+        return root.cmdBlog.displayResult(sprintf(helpStr, root.cmdBlog.listToString(root.cmdBlog.getCommandList())));
       } else if (args.length === 1) {
         if (root.cmdBlog.commandFunctionList[args[0]]) {
           return root.cmdBlog.displayResult(root.cmdBlog.commandFunctionList[args[0]].docString);
@@ -60,29 +53,24 @@
         return root.cmdBlog.displayResult(this.docString);
       }
     },
-    docString: "Usage 1: help\nFunction: display list of available commands.\nUsage 2: help <command>\nFunction: display usage of the command"
+    docString: "Usage 1: help\nFunction: display list of available commands.\nUsage 2: help {&lt;}command{&gt;}\nFunction: display usage of the command",
+    hint: function(prefix) {
+      return root.cmdBlog.getCommandList(prefix);
+    }
   };
 
   root.cmdBlog.commandFunctionList.ls = {
     run: function(args) {
-      var getDirectoryList;
-      getDirectoryList = function() {
-        var details, directory, str, _ref;
-        str = "";
-        _ref = root.cmdBlog.directories;
-        for (directory in _ref) {
-          details = _ref[directory];
-          str += directory + "/ \n";
-        }
-        return str.slice(0, (str.length - 2) + 1 || 9e9);
-      };
       if (args.length === 0) {
-        return root.cmdBlog.displayResult("Directories:\n\n" + getDirectoryList());
+        return root.cmdBlog.displayResult("Directories:\n\n" + root.cmdBlog.listToString(root.cmdBlog.getDirectoryList()));
       } else {
         return root.cmdBlog.displayResult(this.docString);
       }
     },
-    docString: "Usage: ls\nFunction: display directories under current path"
+    docString: "Usage: ls\nFunction: display directories under current path",
+    hint: function() {
+      return '';
+    }
   };
 
   root.cmdBlog.commandFunctionList.cd = {
@@ -103,27 +91,11 @@
         }
       }
     },
-    docString: "Usage: cd <directory_name>\nFunction: move to the directory."
+    docString: "Usage: cd {&lt;}directory_name{&gt;}\nFunction: move to the directory."
   };
 
   root.cmdBlog.init = function() {
-    jQuery.fn.displayNext = root.cmdBlog._displayNext;
-    jQuery.fn.display = root.cmdBlog._display;
-    $(".cmdinput").focus();
-    $(window).click(function() {
-      return $(".cmdinput").focus();
-    });
-    root.cmdBlog.processCommand("welcome");
-    return $(document).keypress(function(e) {
-      if (e.which === 13 && $(".cmdinput").is(":focus")) {
-        root.cmdBlog.processCommand($(".cmdinput").val());
-        return $(".cmdinput").val("");
-      }
-    });
+    return root.cmdBlog.processCommand("welcome");
   };
-
-  $(function() {
-    return root.cmdBlog.init();
-  });
 
 }).call(this);

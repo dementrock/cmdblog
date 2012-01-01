@@ -30,6 +30,8 @@ root.cmdBlog.commandFunctionList.welcome =
     Usage: welcome
     Function: display welcome message.
   """
+  hint: () ->
+    ''
 
 root.cmdBlog.commandFunctionList.help =
   run: (args) ->
@@ -37,7 +39,7 @@ root.cmdBlog.commandFunctionList.help =
       """
         Available commands:
         %s
-        Type `help <command>' for usage of the specific command. 
+        Type `help {&lt;}command{&gt;}' for usage of the specific command. 
       """
 
     noHelpStr =
@@ -45,14 +47,8 @@ root.cmdBlog.commandFunctionList.help =
         Command not found.
       """
 
-    getCommandList = () ->
-      str = ""
-      for command, detail of root.cmdBlog.commandFunctionList
-        str += '`' + command + "', "
-      str[0..str.length-3]
-
     if args.length == 0
-      root.cmdBlog.displayResult sprintf helpStr, getCommandList()
+      root.cmdBlog.displayResult sprintf helpStr, root.cmdBlog.listToString(root.cmdBlog.getCommandList())
     else if args.length == 1
       if root.cmdBlog.commandFunctionList[args[0]]
         root.cmdBlog.displayResult root.cmdBlog.commandFunctionList[args[0]].docString
@@ -65,20 +61,18 @@ root.cmdBlog.commandFunctionList.help =
   """
     Usage 1: help
     Function: display list of available commands.
-    Usage 2: help <command>
+    Usage 2: help {&lt;}command{&gt;}
     Function: display usage of the command
   """
 
+  hint: (prefix) ->
+    root.cmdBlog.getCommandList(prefix)
+
+
 root.cmdBlog.commandFunctionList.ls =
   run: (args) ->
-    getDirectoryList = () ->
-      str = ""
-      for directory, details of root.cmdBlog.directories
-        str += directory + "/ \n"
-      str[0..str.length-2]
-
     if args.length == 0
-      root.cmdBlog.displayResult "Directories:\n\n" + getDirectoryList()
+      root.cmdBlog.displayResult "Directories:\n\n" + root.cmdBlog.listToString(root.cmdBlog.getDirectoryList())
     else
       root.cmdBlog.displayResult this.docString
   docString: \
@@ -86,6 +80,8 @@ root.cmdBlog.commandFunctionList.ls =
     Usage: ls
     Function: display directories under current path
   """
+  hint: () ->
+    ''
 
 root.cmdBlog.commandFunctionList.cd =
   run: (args) ->
@@ -105,24 +101,10 @@ root.cmdBlog.commandFunctionList.cd =
         root.cmdBlog.displayResult directoryNotFoundStr
   docString: \
   """
-    Usage: cd <directory_name>
+    Usage: cd {&lt;}directory_name{&gt;}
     Function: move to the directory.
   """
 
 root.cmdBlog.init = () ->
 
-  jQuery.fn.displayNext = root.cmdBlog._displayNext
-  jQuery.fn.display = root.cmdBlog._display
-  $(".cmdinput").focus()
-  $(window).click ()->
-    $(".cmdinput").focus()
-
   root.cmdBlog.processCommand "welcome"
-
-  $(document).keypress (e) ->
-    if e.which == 13 and $(".cmdinput").is(":focus")
-      root.cmdBlog.processCommand $(".cmdinput").val()
-      $(".cmdinput").val("")
-
-$ () ->
-  root.cmdBlog.init()

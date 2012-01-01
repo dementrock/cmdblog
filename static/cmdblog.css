@@ -116,3 +116,17 @@ body {
   background-color: black;
   display: inline-block;
 }
+
+/* line 64, ../sass/screen.scss */
+.hiddentab {
+  background-color: black;
+  border: none;
+  width: 0px;
+  height: 0px;
+}
+
+/* line 71, ../sass/screen.scss */
+.cmdblock {
+  width: 150px;
+  display: inline-block;
+}
