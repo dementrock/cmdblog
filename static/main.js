@@ -79,7 +79,7 @@
         return str.slice(0, (str.length - 2) + 1 || 9e9);
       };
       if (args.length === 0) {
-        return root.cmdBlog.displayResult("Directories:\n\n" + root.cmdBlog._getDirectoryList());
+        return root.cmdBlog.displayResult("Directories:\n\n" + getDirectoryList());
       } else {
         return root.cmdBlog.displayResult(this.docString);
       }

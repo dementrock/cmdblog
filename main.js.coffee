@@ -79,7 +79,7 @@ root.cmdBlog.commandFunctionList.ls =
       str[0..str.length-2]
 
     if args.length == 0
-      root.cmdBlog.displayResult "Directories:\n\n" + root.cmdBlog._getDirectoryList()
+      root.cmdBlog.displayResult "Directories:\n\n" + getDirectoryList()
     else
       root.cmdBlog.displayResult this.docString
   docString: \
