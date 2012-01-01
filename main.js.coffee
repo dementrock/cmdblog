@@ -10,10 +10,9 @@ root.cmdBlog.directories.blog =
   url: "http://blog.rockyduan.com/"
 
 root.cmdBlog.directories.github =
-  github:
-    name: "cmbblog repository on github"
-    type: "link"
-    url:  "https://github.com/dementrock/cmdblog"
+  name: "cmbblog repository on github"
+  type: "link"
+  url:  "https://github.com/dementrock/cmdblog"
 
 root.cmdBlog.commandFunctionList.welcome =
   run: (args) ->
