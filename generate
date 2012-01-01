@@ -4,3 +4,5 @@ compass compile
 cp stylesheets/screen.css static/cmdblog.css
 coffee -c cmdblog.js
 mv cmdblog.js.js static/cmdblog.js
+coffee -c main.js
+mv main.js.js static/main.js
